@@ -98,8 +98,6 @@ class Block(nn.Module):
         if window_size != 0:
             self.gauss_model = GaussModel(w_s=window_size, axis=axis, device=None, dtype=None)
         
-        self.gauss_model.apply(segm_init_weights)
-
     def forward(
         self, hidden_states: Tensor, residual: Optional[Tensor] = None, inference_params=None
     ):
