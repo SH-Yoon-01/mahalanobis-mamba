@@ -670,10 +670,10 @@ def model_a(pretrained=False, **kwargs):
     return model
 
 @register_model
-def model_b(pretrained=False, **kwargs):
-    window_sizes = [0]*4 + [7]*6 + [2]*6 + [1]*8
+def cifar_model_a(pretrained=False, **kwargs):
+    window_sizes = [0]*4 + [7]*4 + [2]*4 + [1]*4
     model = VisionMamba(
-        patch_size=16, embed_dim=192, depth=24, rms_norm=True, residual_in_fp32=True, fused_add_norm=True, final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2", if_cls_token=True, if_divide_out=True, use_middle_cls_token=True, window_sizes=window_sizes, **kwargs)
+        patch_size=5, stride=2, img_size=32, embed_dim=192, depth=16, rms_norm=True, residual_in_fp32=True, fused_add_norm=True, final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2", if_cls_token=True, if_divide_out=True, use_middle_cls_token=True, window_sizes=window_sizes, **kwargs)
     model.default_cfg = _cfg()
     if pretrained:
         checkpoint = torch.hub.load_state_dict_from_url(
@@ -684,38 +684,10 @@ def model_b(pretrained=False, **kwargs):
     return model
 
 @register_model
-def model_c(pretrained=False, **kwargs):
-    window_sizes = [0]*8 + [7]*6 + [2]*6 + [1]*4
+def cifar_model_b(pretrained=False, **kwargs):
+    window_sizes = [0]*4 + [1]*4 + [2]*4 + [7]*4
     model = VisionMamba(
-        patch_size=16, embed_dim=192, depth=24, rms_norm=True, residual_in_fp32=True, fused_add_norm=True, final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2", if_cls_token=True, if_divide_out=True, use_middle_cls_token=True, window_sizes=window_sizes, **kwargs)
-    model.default_cfg = _cfg()
-    if pretrained:
-        checkpoint = torch.hub.load_state_dict_from_url(
-            url="to.do",
-            map_location="cpu", check_hash=True
-        )
-        model.load_state_dict(checkpoint["model"])
-    return model
-
-@register_model
-def model_d(pretrained=False, **kwargs):
-    window_sizes = [7]*8 + [2]*8 + [1]*8
-    model = VisionMamba(
-        patch_size=16, embed_dim=192, depth=24, rms_norm=True, residual_in_fp32=True, fused_add_norm=True, final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2", if_cls_token=True, if_divide_out=True, use_middle_cls_token=True, window_sizes=window_sizes, **kwargs)
-    model.default_cfg = _cfg()
-    if pretrained:
-        checkpoint = torch.hub.load_state_dict_from_url(
-            url="to.do",
-            map_location="cpu", check_hash=True
-        )
-        model.load_state_dict(checkpoint["model"])
-    return model
-
-@register_model
-def model_e(pretrained=False, **kwargs):
-    window_sizes = [0]*6 + [1]*6 + [2]*6 + [7]*6
-    model = VisionMamba(
-        patch_size=16, embed_dim=192, depth=24, rms_norm=True, residual_in_fp32=True, fused_add_norm=True, final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2", if_cls_token=True, if_divide_out=True, use_middle_cls_token=True, window_sizes=window_sizes, **kwargs)
+        patch_size=5, stride=2, img_size=32, embed_dim=192, depth=16, rms_norm=True, residual_in_fp32=True, fused_add_norm=True, final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2", if_cls_token=True, if_divide_out=True, use_middle_cls_token=True, window_sizes=window_sizes, **kwargs)
     model.default_cfg = _cfg()
     if pretrained:
         checkpoint = torch.hub.load_state_dict_from_url(
