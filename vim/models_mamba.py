@@ -754,7 +754,7 @@ def cifar_model_e(pretrained=False, **kwargs):
 
 @register_model
 def cifar_model_f(pretrained=False, **kwargs):
-    window_sizes = [0]*12 + [7]*4 + [2]*4 + [1]*4
+    window_sizes = [0]*8 + [7]*4 + [2]*4 + [1]*4 + [0]*4
     model = VisionMamba(
         patch_size=5, stride=2, embed_dim=192, depth=24, rms_norm=True, residual_in_fp32=True, fused_add_norm=True, final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2", if_cls_token=True, if_divide_out=True, use_middle_cls_token=True, window_sizes=window_sizes, **kwargs)
     model.default_cfg = _cfg()
@@ -768,7 +768,21 @@ def cifar_model_f(pretrained=False, **kwargs):
 
 @register_model
 def cifar_model_g(pretrained=False, **kwargs):
-    window_sizes = [0]*4 + [7]*6 + [2]*6 + [1]*8
+    window_sizes = [0]*4 + [7]*4 + [2]*4 + [1]*8 + [0]*4
+    model = VisionMamba(
+        patch_size=5, stride=2, embed_dim=192, depth=24, rms_norm=True, residual_in_fp32=True, fused_add_norm=True, final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2", if_cls_token=True, if_divide_out=True, use_middle_cls_token=True, window_sizes=window_sizes, **kwargs)
+    model.default_cfg = _cfg()
+    if pretrained:
+        checkpoint = torch.hub.load_state_dict_from_url(
+            url="to.do",
+            map_location="cpu", check_hash=True
+        )
+        model.load_state_dict(checkpoint["model"])
+    return model
+
+@register_model
+def cifar_model_h(pretrained=False, **kwargs):
+    window_sizes = [0]*6 + [7]*4 + [2]*4 + [1]*6 + [0]*4
     model = VisionMamba(
         patch_size=5, stride=2, embed_dim=192, depth=24, rms_norm=True, residual_in_fp32=True, fused_add_norm=True, final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2", if_cls_token=True, if_divide_out=True, use_middle_cls_token=True, window_sizes=window_sizes, **kwargs)
     model.default_cfg = _cfg()
