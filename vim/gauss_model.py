@@ -89,6 +89,11 @@ class GaussModel(nn.Module):
             axis = 2
         else:
             return NotImplemented
+        
+        if h_w == 1 and w_w == 1:
+            axis = 1
+        elif self.n_w == 1:
+            axis = 2
 
         weights, weight_indices = torch.sort(weights, dim=axis, descending=True)
         weights = weights.view(B, self.n_w, h_w * w_w, 1).expand(-1, -1, -1, D) # (B, n_w, h_w * w_w, D)
