@@ -673,7 +673,7 @@ def model_a(pretrained=False, **kwargs):
 def cifar_model_a(pretrained=False, **kwargs):
     window_sizes = [0]*2 + [7]*2 + [2]*2 + [1]*2
     model = VisionMamba(
-        patch_size=5, stride=2, embed_dim=192, depth=16, rms_norm=True, residual_in_fp32=True, fused_add_norm=True, final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2", if_cls_token=True, if_divide_out=True, use_middle_cls_token=True, window_sizes=window_sizes, **kwargs)
+        patch_size=5, stride=2, embed_dim=192, depth=8, rms_norm=True, residual_in_fp32=True, fused_add_norm=True, final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2", if_cls_token=True, if_divide_out=True, use_middle_cls_token=True, window_sizes=window_sizes, **kwargs)
     model.default_cfg = _cfg()
     if pretrained:
         checkpoint = torch.hub.load_state_dict_from_url(
@@ -687,7 +687,7 @@ def cifar_model_a(pretrained=False, **kwargs):
 def cifar_model_b(pretrained=False, **kwargs):
     window_sizes = [0]*2 + [1]*2 + [2]*2 + [7]*2
     model = VisionMamba(
-        patch_size=5, stride=2, embed_dim=192, depth=16, rms_norm=True, residual_in_fp32=True, fused_add_norm=True, final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2", if_cls_token=True, if_divide_out=True, use_middle_cls_token=True, window_sizes=window_sizes, **kwargs)
+        patch_size=5, stride=2, embed_dim=192, depth=8, rms_norm=True, residual_in_fp32=True, fused_add_norm=True, final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2", if_cls_token=True, if_divide_out=True, use_middle_cls_token=True, window_sizes=window_sizes, **kwargs)
     model.default_cfg = _cfg()
     if pretrained:
         checkpoint = torch.hub.load_state_dict_from_url(
