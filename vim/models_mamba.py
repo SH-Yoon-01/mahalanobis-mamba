@@ -67,7 +67,7 @@ class PatchEmbed(nn.Module):
 
 class Block(nn.Module):
     def __init__(
-        self, dim, mixer_cls, norm_cls=nn.LayerNorm, fused_add_norm=False, residual_in_fp32=False, drop_path=0., window_size=0, axis='none',
+        self, dim, mixer_cls, norm_cls=nn.LayerNorm, fused_add_norm=False, residual_in_fp32=False, drop_path=0., window_size=0, axis='none', device=None, dtype=None,
     ):
         """
         Simple block wrapping a mixer class with LayerNorm/RMSNorm and residual connection"
@@ -96,7 +96,7 @@ class Block(nn.Module):
         
         self.window_size = window_size
         if window_size != 0:
-            self.gauss_model = GaussModel(w_s=window_size, axis=axis)
+            self.gauss_model = GaussModel(w_s=window_size, axis=axis, device=None, dtype=None)
         
     def forward(
         self, hidden_states: Tensor, residual: Optional[Tensor] = None, inference_params=None
@@ -188,6 +188,7 @@ def create_block(
         residual_in_fp32=residual_in_fp32,
         window_size=window_size,
         axis=axis,
+        **factory_kwargs
     )
     block.layer_idx = layer_idx
     return block
