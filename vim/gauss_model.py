@@ -22,19 +22,19 @@ def build_rotation_2d(r, epsilon=1e-8):
     return rotation
 
 class GaussModel(nn.Module):
-    def __init__(self, w_s, axis, device=None, dtype=None):
+    def __init__(self, w_s, axis):
         super().__init__()
         self.w_s = w_s
         self.n_w = self.w_s * self.w_s
 
-        self.scale = nn.Parameter(torch.zeros((self.n_w, 2), device=device, dtype=torch.float32), requires_grad=True)
+        self.scale = nn.Parameter(torch.zeros((self.n_w, 2), dtype=torch.float32), requires_grad=True)
 
-        _rotation = torch.zeros((self.n_w, 2), device=device, dtype=torch.float32)
+        _rotation = torch.zeros((self.n_w, 2), dtype=torch.float32)
         _rotation[:, 0] = 1
         self.rotation = nn.Parameter(_rotation, requires_grad=True)
         self.rotation._no_weight_decay = True
 
-        _mean = torch.zeros((self.n_w, 2), device=device, dtype=torch.float32)
+        _mean = torch.zeros((self.n_w, 2), dtype=torch.float32)
         _mean[:, 0] = 0
         _mean[:, 1] = 0
         self.mean = nn.Parameter(_mean, requires_grad=True)
