@@ -90,9 +90,7 @@ class GaussModel(nn.Module):
         else:
             return NotImplemented
         
-        if h_w == 1 and w_w == 1:
-            axis = 1
-        elif self.n_w == 1:
+        if self.n_w == 1:
             axis = 2
 
         weights, weight_indices = torch.sort(weights, dim=axis, descending=True)
