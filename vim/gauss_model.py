@@ -106,10 +106,6 @@ class GaussModel(nn.Module):
         x = torch.gather(x, axis, weight_indices)
         
         x_new = x * weights  # (B, n_w, h_w * w_w, D)
-
-        x_new = x_new.view(B, n_w_sqrt, n_w_sqrt, h_w, w_w, D)
-        x_new = x_new.permute(0, 1, 3, 2, 4, 5).contiguous()
-        x_new = x_new.view(B, H, W, D)
         x_new = x_new.view(B, l, D)
         x_new = torch.cat((x_new[:, :cls_token_pos, :], cls_token, x_new[:, cls_token_pos:, :]), dim=1)
         assert (B, L, D) == x_new.shape
