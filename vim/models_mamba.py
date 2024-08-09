@@ -670,7 +670,7 @@ def model_a(pretrained=False, **kwargs):
     return model
 
 @register_model
-def model_b(pretrained=False, **kwargs)
+def model_b(pretrained=False, **kwargs):
     window_sizes = [0]*6 + [1]*6 + [2]*6 + [7]*6
     model = VisionMamba(
         patch_size=16, embed_dim=192, depth=24, rms_norm=True, residual_in_fp32=True, fused_add_norm=True, final_pool_type='mean', if_abs_pos_embed=True, if_rope=False, if_rope_residual=False, bimamba_type="v2", if_cls_token=True, if_divide_out=True, use_middle_cls_token=True, window_sizes=window_sizes, **kwargs)
